@@ -55,9 +55,9 @@
 	var browserHistory = ReactRouter.browserHistory;
 	var APP = __webpack_require__(223);
 	var Audience = __webpack_require__(272);
-	var Speaker = __webpack_require__(274);
-	var Board = __webpack_require__(275);
-	var Whoops404 = __webpack_require__(276);
+	var Speaker = __webpack_require__(275);
+	var Board = __webpack_require__(276);
+	var Whoops404 = __webpack_require__(277);
 
 	var routes = React.createElement(
 	  Route,
@@ -32679,7 +32679,7 @@
 
 	var React = __webpack_require__(1);
 	var Display = __webpack_require__(273);
-
+	var Join = __webpack_require__(274);
 	var Audience = React.createClass({
 	  displayName: 'Audience',
 	  render: function render() {
@@ -32690,7 +32690,8 @@
 	        'h1',
 	        null,
 	        ' Join the session '
-	      )
+	      ),
+	      React.createElement(Join, null)
 	    );
 	  }
 	});
@@ -32726,6 +32727,44 @@
 
 	var React = __webpack_require__(1);
 
+	var Join = React.createClass({
+	  displayName: 'Join',
+	  join: function join() {
+	    console.log('TODO: Join member ' + this.memberName.value);
+	  },
+	  render: function render() {
+	    var _this = this;
+
+	    return React.createElement(
+	      'form',
+	      { action: 'javascript:void(0)', onSubmit: this.join },
+	      React.createElement(
+	        'label',
+	        null,
+	        'Full Name'
+	      ),
+	      React.createElement('input', { ref: function ref(_ref) {
+	          return _this.memberName = _ref;
+	        }, className: 'form-control', placeholder: 'Enter your full name', required: true }),
+	      React.createElement(
+	        'button',
+	        { className: 'btn btn-primary' },
+	        'Join'
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Join;
+
+/***/ },
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+
 	var Speaker = React.createClass({
 	  displayName: 'Speaker',
 	  render: function render() {
@@ -32740,7 +32779,7 @@
 	module.exports = Speaker;
 
 /***/ },
-/* 275 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32761,7 +32800,7 @@
 	module.exports = Board;
 
 /***/ },
-/* 276 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
