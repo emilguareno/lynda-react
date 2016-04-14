@@ -55,9 +55,9 @@
 	var browserHistory = ReactRouter.browserHistory;
 	var APP = __webpack_require__(223);
 	var Audience = __webpack_require__(272);
-	var Speaker = __webpack_require__(273);
-	var Board = __webpack_require__(274);
-	var Whoops404 = __webpack_require__(275);
+	var Speaker = __webpack_require__(274);
+	var Board = __webpack_require__(275);
+	var Whoops404 = __webpack_require__(276);
 
 	var routes = React.createElement(
 	  Route,
@@ -25196,7 +25196,7 @@
 	      'div',
 	      null,
 	      React.createElement(Header, { title: this.state.title, status: this.state.status }),
-	      this.props.children
+	      React.cloneElement(this.props.children, this.state)
 	    );
 	  }
 	});
@@ -32678,14 +32678,19 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
+	var Display = __webpack_require__(273);
 
 	var Audience = React.createClass({
 	  displayName: 'Audience',
 	  render: function render() {
 	    return React.createElement(
-	      'h1',
-	      null,
-	      'Audience'
+	      Display,
+	      { 'if': this.props.status === 'connected' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        ' Join the session '
+	      )
 	    );
 	  }
 	});
@@ -32694,6 +32699,27 @@
 
 /***/ },
 /* 273 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+
+	var Display = React.createClass({
+	  displayName: 'Display',
+	  render: function render() {
+	    return this.props.if ? React.createElement(
+	      'div',
+	      null,
+	      this.props.children
+	    ) : null;
+	  }
+	});
+
+	module.exports = Display;
+
+/***/ },
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32714,7 +32740,7 @@
 	module.exports = Speaker;
 
 /***/ },
-/* 274 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32735,7 +32761,7 @@
 	module.exports = Board;
 
 /***/ },
-/* 275 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
