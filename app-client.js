@@ -5,14 +5,11 @@ var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
 var browserHistory = ReactRouter.browserHistory;
-var NotFoundRoute = ReactRouter.NotFoundRoute;
 var APP = require('./components/APP');
 var Audience = require('./components/Audience');
 var Speaker = require('./components/Speaker');
 var Board = require('./components/Board');
 var Whoops404 = require('./components/Whoops404');
-
-console.log(NotFoundRoute);
 
 var routes = (
   <Route path="/" component={APP}>

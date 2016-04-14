@@ -53,14 +53,11 @@
 	var Route = ReactRouter.Route;
 	var IndexRoute = ReactRouter.IndexRoute;
 	var browserHistory = ReactRouter.browserHistory;
-	var NotFoundRoute = ReactRouter.NotFoundRoute;
 	var APP = __webpack_require__(223);
 	var Audience = __webpack_require__(272);
 	var Speaker = __webpack_require__(273);
 	var Board = __webpack_require__(274);
 	var Whoops404 = __webpack_require__(275);
-
-	console.log(NotFoundRoute);
 
 	var routes = React.createElement(
 	  Route,
