@@ -19,12 +19,17 @@ var APP = React.createClass({
     this.socket.on('audience', this.updateAudience);
   },
   joined(member){
+    sessionStorage.member = JSON.stringify(member);
     this.setState({member: member});
   },
   updateAudience(newAudience){
     this.setState({audience: newAudience});
   },
   connect(){
+    var member = (sessionStorage.member) ? JSON.parse(sessionStorage.member) : null;
+    if(member){
+      this.emit('join', member);
+    }
     this.setState({status: 'connected'});
   },
   disconnect(){
