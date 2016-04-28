@@ -42,14 +42,17 @@ io.sockets.on('connection', function(socket){
     io.sockets.emit('audience', audience);
   });
   socket.on('start', function(payload){
-    console.log(payload);
     speaker.name = payload.name;
     speaker.id = this.id;
     speaker.type = 'speaker';
+    title = payload.title;
     this.emit('joined', speaker);
+    io.sockets.emit('start', {title: title, speaker: speaker.name});
   });
   socket.emit('welcome', {
-    title: title
+    title: title,
+    audience: audience,
+    speaker: speaker.name
   });
   connections.push(socket);
   console.log('Connected %s sockets connected', connections.length);

@@ -25295,16 +25295,17 @@
 	      title: '',
 	      member: {},
 	      audience: [],
-	      speaker: {}
+	      speaker: ''
 	    };
 	  },
 	  componentWillMount: function componentWillMount() {
 	    this.socket = io('http://localhost:3000');
 	    this.socket.on('connect', this.connect);
 	    this.socket.on('disconnect', this.disconnect);
-	    this.socket.on('welcome', this.welcome);
+	    this.socket.on('welcome', this.updateState);
 	    this.socket.on('joined', this.joined);
 	    this.socket.on('audience', this.updateAudience);
+	    this.socket.on('start', this.updateState);
 	  },
 	  joined: function joined(member) {
 	    sessionStorage.member = JSON.stringify(member);
@@ -25323,8 +25324,8 @@
 	  disconnect: function disconnect() {
 	    this.setState({ status: 'disconnected' });
 	  },
-	  welcome: function welcome(serverState) {
-	    this.setState({ title: serverState.title });
+	  updateState: function updateState(serverState) {
+	    this.setState(serverState);
 	  },
 	  emit: function emit(eventName, payload) {
 	    this.socket.emit(eventName, payload);
@@ -25340,7 +25341,7 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(Header, { title: this.state.title, status: this.state.status }),
+	      React.createElement(Header, this.state),
 	      this.getChildrenWithProps()
 	    );
 	  }
@@ -32803,6 +32804,11 @@
 	          'h1',
 	          null,
 	          this.props.title
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          this.props.speaker
 	        )
 	      ),
 	      React.createElement(
