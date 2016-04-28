@@ -2,7 +2,7 @@ var React = require('react');
 
 var Join = React.createClass({
   join(){
-    console.log('TODO: Join member ' + this.memberName.value);
+    this.props.emit('join', {name: this.memberName.value});
   },
   render(){
     return (

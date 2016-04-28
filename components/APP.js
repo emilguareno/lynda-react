@@ -5,7 +5,9 @@ var APP = React.createClass({
   getInitialState(){
     return {
       status: 'disconnected',
-      title: ''
+      title: '',
+      member: {},
+      audience: []
     };
   },
   componentWillMount(){
@@ -13,6 +15,14 @@ var APP = React.createClass({
     this.socket.on('connect', this.connect);
     this.socket.on('disconnect', this.disconnect);
     this.socket.on('welcome', this.welcome);
+    this.socket.on('joined', this.joined);
+    this.socket.on('audience', this.updateAudience);
+  },
+  joined(member){
+    this.setState({member: member});
+  },
+  updateAudience(newAudience){
+    this.setState({audience: newAudience});
   },
   connect(){
     this.setState({status: 'connected'});
@@ -23,11 +33,19 @@ var APP = React.createClass({
   welcome(serverState){
     this.setState({title: serverState.title});
   },
+  emit(eventName, payload){
+    this.socket.emit(eventName, payload);
+  },
+  getChildrenWithProps() {
+    return React.Children.map(this.props.children, (child) => {
+      return React.cloneElement(child, {...this.state, emit: this.emit});
+    });
+  },
   render(){
       return (
         <div>
           <Header title={this.state.title} status={this.state.status} />
-          {React.cloneElement(this.props.children, this.state)}
+          {this.getChildrenWithProps()}
         </div>
       );
   }
