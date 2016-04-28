@@ -26,6 +26,10 @@ io.sockets.on('connection', function(socket){
     if(member){
       audience.splice(audience.indexOf(member), 1);
       io.sockets.emit('audience', audience);
+    } else if(this.id === speaker.id){
+      speaker = {};
+      title = 'Untitled Presentation';
+      io.sockets.emit('end', {title: title, speaker: ''});
     }
     connections.splice(connections.indexOf(socket), 1);
     socket.disconnect();
