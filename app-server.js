@@ -6,6 +6,7 @@ var app = express();
 var connections = [];
 var title = 'Untitled Presentation';
 var audience = [];
+var speaker = {};
 
 app.use(express.static('./public'));
 app.use(express.static('./node_modules/bootstrap/dist'));
@@ -33,11 +34,19 @@ io.sockets.on('connection', function(socket){
   socket.on('join', function(payload){
     var newMember = {
       id: this.id,
-      name: payload.name
+      name: payload.name,
+      type: 'member'
     };
     this.emit('joined', newMember);
     audience.push(newMember);
     io.sockets.emit('audience', audience);
+  });
+  socket.on('start', function(payload){
+    console.log(payload);
+    speaker.name = payload.name;
+    speaker.id = this.id;
+    speaker.type = 'speaker';
+    this.emit('joined', speaker);
   });
   socket.emit('welcome', {
     title: title
